@@ -1,0 +1,271 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskGrade {
+  S
+  A
+  B
+  C
+}
+
+enum TaskType {
+  UNPLANNED // PONCTUELLE ex: Emptying trashes.
+  PLANNED // CYCLIQUE ex: Cleaning the house every Saturday.
+  ASKED // À LA VOLÉE ex: Cleaning something.
+  SHOPPING // SHOPPING ex: Buying groceries.
+}
+
+enum TaskReccurenceUnit {
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+enum Room {
+  ALL_HOUSE
+  KITCHEN
+  BATHROOM
+  TOILETS
+  CORRIDOR
+  BALCONY
+}
+
+enum PokemonType {
+  NORMAL
+  FIRE
+  WATER
+  ELECTRIC
+  GRASS
+  ICE
+  FIGHTING
+  POISON
+  GROUND
+  FLYING
+  PSYCHIC
+  BUG
+  ROCK
+  GHOST
+  DRAGON
+  DARK
+  STEEL
+  FAIRY
+}
+
+enum CardRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  PROMO
+
+  DOUBLE_RARE
+  ULTRA_RARE
+  ILLUSTRATION_RARE
+  SPECIAL_ILLUSTRATION_RARE
+  HYPER_RARE
+}
+
+model Avatar {
+  id        Int     @id @default(autoincrement())
+  publicId  String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+  imageUrl  String  @db.VarChar(255) @map("image_url")
+
+  users     User[]
+
+  @@map("avatar")
+}
+
+// Users of the application
+model User {
+  id        Int     @id @default(autoincrement())
+  publicId  String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+  username  String  @unique @db.VarChar(30)
+  aka       String  @db.VarChar(30)
+  bio       String? @db.VarChar(300)
+  wallet    Int     @default(0)
+  holidays  Boolean @default(false)
+
+  avatarId  Int?    @map("avatar_id")
+  avatar    Avatar? @relation(fields: [avatarId], references: [id])
+  
+  taskHistories         TaskHistory[]
+  askedTasksCreated     AskedTask[]
+  shoppingTasksCreated  ShoppingTask[]
+
+  cardsOwned            CardOwned[]
+
+  @@map("user")
+}
+
+model Task {
+  id        Int     @id @default(autoincrement())
+  publicId  String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+  title     String  @db.VarChar(100)
+  content   String? @db.VarChar(400)
+  room      Room?
+  grade     TaskGrade
+
+  type           TaskType
+  unplannedTask  UnplannedTask?
+  plannedTask    PlannedTask?
+  askedTask      AskedTask?
+  shoppingTask   ShoppingTask?
+
+  histories      TaskHistory[]
+
+  @@map("task")
+}
+
+// Tasks to be accomplished
+// OneShot tasks: ponctuelles, bloquées après réalisation, pas de créateur, pas de date de création, pas de limite de temps
+model UnplannedTask {
+  taskId       Int      @id @map("task_id")
+  task         Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  daysUntilNextExecution Int @map("days_until_next_execution")
+
+  @@map("unplanned_task")
+}
+
+// Cyclic tasks: cycliques, pas de créateur, pas de date de création, ont un jour de début et une durée limite d'exécution
+model PlannedTask {
+  taskId             Int      @id @map("task_id")
+  task               Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  recurrence         TaskReccurenceUnit
+  recurrenceInterval Int      @map("recurrence_interval")
+  executionLimitDays Int      @map("execution_limit_days")
+
+  @@map("planned_task")
+}
+
+// OnDemand tasks: à la volée, créées par un utilisateur, pas de limite de temps, supprimées après réalisation
+model AskedTask {
+  taskId    Int  @id @map("task_id")
+  task      Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  creatorId Int  @map("creator_id")
+  creator   User @relation(fields: [creatorId], references: [id])
+
+  @@map("asked_task")
+}
+
+model ShoppingTask {
+  taskId    Int  @id @map("task_id")
+  task      Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  creatorId Int  @map("creator_id")
+  creator   User @relation(fields: [creatorId], references: [id])
+
+  @@map("shopping_task")
+}
+
+// History of task completions
+model TaskHistory {
+  id        Int    @id @default(autoincrement())
+  publicId  String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+
+  taskId    Int    @map("task_id")
+  task      Task   @relation(fields: [taskId], references: [id])
+
+  userId    Int    @map("user_id")
+  user      User   @relation(fields: [userId], references: [id])
+
+  realizedAt DateTime @default(now()) @map("realised_at")
+
+  @@map("task_history")
+}
+
+// Pokemon available in the system
+model Pokemon {
+  id          Int     @id @default(autoincrement())
+  publicId    String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+
+  pokedexId   Int     @map("pokedex_id") @unique
+  name        String  @db.VarChar(100) @unique
+  types       PokemonType[]
+  stats       Json
+  imageUrl       String  @db.VarChar(255) @map("image_url")
+  frontSpriteUrl String  @db.VarChar(255) @map("front_sprite_url")
+  pkmnGeneration Int     @map("pkmn_generation")
+  
+  cards Card[]
+
+  @@map("pokemon")
+}
+
+model Booster {
+  id          Int     @id @default(autoincrement())
+  publicId    String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+  name        String  @db.VarChar(100) @unique
+  description String  @db.VarChar(255)
+  price       Int
+  imageUrl    String  @db.VarChar(255) @map("image_url")
+  sets        Set[]   @relation("booster_sets")
+
+  @@map("booster")
+}
+
+model Set {
+  id          Int       @id @default(autoincrement())
+  publicId    String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+  name        String    @db.VarChar(100) @unique
+  description String    @db.VarChar(255)
+  releaseDate DateTime  @map("release_date")
+
+  officialCardCount Int @map("official_card_count")
+  totalCardCount    Int @map("total_card_count")
+
+  cards Card[]
+  boosters Booster[] @relation("booster_sets")
+
+  @@map("set")
+}
+
+// Card available for collection
+model Card {
+  id        Int     @id @default(autoincrement())
+  publicId  String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("public_id")
+
+  set       Set     @relation(fields: [setId], references: [id])
+  setId     Int     @map("set_id")
+
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int     @map("pokemon_id")
+
+  imageUrl  String  @db.VarChar(255) @map("image_url")
+  rarity    CardRarity
+  cardNumber Int    @map("card_number")
+
+  foundedBy  CardOwned[]
+
+  @@map("card")
+}
+
+// Card owned by user
+model CardOwned {
+  id        Int     @id @default(autoincrement())
+
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int     @map("user_id")
+
+  card      Card    @relation(fields: [cardId], references: [id])
+  cardId    Int     @map("card_id")
+
+  quantity  Int     @default(1)
+  discoveredAt DateTime @default(now()) @map("discovered_at")
+
+  @@map("card_owned")
+}
