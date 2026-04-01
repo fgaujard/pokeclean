@@ -1,0 +1,104 @@
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: $color-white;
+  border-bottom: 3px solid $color-pokemon-yellow;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  // Desktop: taille fixe centrée
+  @media (min-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 480px;
+    border-radius: 0 0 20px 20px;
+    border-left: 3px solid $color-pokemon-yellow;
+    border-right: 3px solid $color-pokemon-yellow;
+  }
+}
+
+.top-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 16px;
+}
+
+.top-bar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform $animation-duration-fast ease;
+
+  &:active {
+    transform: scale(1.1);
+  }
+}
+
+.top-bar-name {
+  font-family: $font-pixel;
+  font-size: 10px;
+  color: $color-pokemon-blue;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.top-bar-wallet {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: $gradient-yellow-button;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid $color-white;
+  box-shadow: 0 4px 12px rgba(255, 203, 5, 0.3);
+  transition: all $animation-duration-fast ease;
+
+  &:active {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 203, 5, 0.4);
+  }
+}
+
+.top-bar-wallet-icon {
+  font-size: 16px;
+  line-height: 1;
+  animation: coin-spin 3s ease-in-out infinite;
+}
+
+.top-bar-wallet-amount {
+  font-size: 11px;
+  color: $color-dark;
+  font-weight: bold;
+  min-width: 60px;
+  text-align: right;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.top-bar-wallet-currency {
+  font-family: $font-pixel;
+  font-size: 10px;
+  color: $color-pokemon-blue;
+  font-weight: bold;
+}
+
+@keyframes coin-spin {
+  0%,
+  100% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+}

@@ -1,0 +1,81 @@
+.player-card {
+  background: $gradient-card;
+  border: $border-card;
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-card;
+  transition: all $animation-duration-normal ease;
+  animation: slideUp $animation-duration-slow ease-out backwards;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:active {
+    transform: translateX(10px) scale(1.02);
+    box-shadow: $shadow-card-hover;
+    border-color: $color-pokemon-blue;
+    background: $gradient-card-hover;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.player-card-compact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  transition: all $animation-duration-normal ease;
+}
+
+.player-info {
+  flex: 1;
+  text-align: left;
+}
+
+.player-name {
+  font-family: $font-pixel;
+  font-size: 1.2rem;
+  color: $color-pokemon-blue;
+  text-shadow: 2px 2px 0 $color-pokemon-yellow;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.player-aka {
+  font-family: $font-pixel;
+  font-size: 0.6rem;
+  color: $color-gray-600;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .player-card {
+    padding: 1rem;
+  }
+
+  .player-card-compact {
+    gap: 1.5rem;
+  }
+
+  .player-name {
+    font-size: 0.9rem;
+  }
+
+  .player-aka {
+    font-size: 0.5rem;
+  }
+}

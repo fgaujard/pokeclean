@@ -1,0 +1,93 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: $color-white;
+  border-top: 3px solid $color-pokemon-yellow;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+
+  // Desktop: taille fixe centrée
+  @media (min-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 480px;
+    border-radius: 20px 20px 0 0;
+    border-left: 3px solid $color-pokemon-yellow;
+    border-right: 3px solid $color-pokemon-yellow;
+  }
+}
+
+.bottom-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px;
+  max-width: 100%;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all $animation-duration-fast ease;
+  color: $color-gray-600;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: $gradient-yellow-button;
+    transition: width $animation-duration-normal ease;
+    border-radius: 4px 4px 0 0;
+  }
+
+  &:active {
+    transform: scale(0.8);
+  }
+
+  &.active {
+    color: $color-pokemon-blue;
+    background: rgba($color-pokemon-yellow, 0.1);
+
+    &::before {
+      width: 60%;
+    }
+
+    .bottom-nav-label {
+      font-weight: 900;
+    }
+  }
+}
+
+.bottom-nav-icon {
+  font-size: 24px;
+  transition: transform $animation-duration-normal ease;
+  line-height: 1;
+}
+
+.bottom-nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+
+  @media (min-width: 768px) {
+    font-size: 9px;
+  }
+}

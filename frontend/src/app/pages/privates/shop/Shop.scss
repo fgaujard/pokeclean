@@ -1,0 +1,134 @@
+.shop-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  overflow: hidden; // Important pour que .shop-grid gère le scroll
+}
+
+.shop-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 3px solid $color-pokemon-yellow;
+  color: $color-pokemon-blue;
+  flex-shrink: 0; // Empêche le header de rétrécir
+}
+
+.shop-title {
+  font-family: $font-pixel;
+  font-size: 14px;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.shop-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0; // Important pour le scroll dans un flex container
+  -webkit-overflow-scrolling: touch; // Smooth scrolling sur iOS
+
+  @media (min-width: 480px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: start;
+  }
+}
+
+.booster-card {
+  background: $color-white;
+  border: 3px solid $color-pokemon-blue;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all $animation-duration-fast ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0; // Empêche la carte de rétrécir
+
+  @media (min-width: 480px) {
+    flex-shrink: 1;
+  }
+
+  &:active {
+    box-shadow: 0 8px 20px rgba(42, 117, 187, 0.3);
+  }
+}
+
+.booster-image {
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+  padding: 16px;
+  border-bottom: 3px solid $color-pokemon-yellow;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.booster-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booster-name {
+  font-family: $font-pixel;
+  font-size: 11px;
+  color: $color-pokemon-blue;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.booster-description {
+  font-size: 12px;
+  color: $color-gray-700;
+  margin: 0;
+  line-height: 1.4;
+  min-height: 36px;
+}
+
+.booster-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: $gradient-yellow-button;
+  border-radius: 10px;
+  border: 2px solid $color-white;
+  box-shadow: 0 2px 8px rgba(255, 203, 5, 0.3);
+  margin-top: 4px;
+}
+
+.price-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.price-value {
+  font-family: $font-pixel;
+  font-size: 12px;
+  color: $color-dark;
+  font-weight: bold;
+}

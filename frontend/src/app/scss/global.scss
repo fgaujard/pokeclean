@@ -1,0 +1,48 @@
+@use "./variables" as *;
+
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/src/app/assets/fonts/PressStart.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Galindo";
+  src: url("/src/app/assets/fonts/Galindo.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; /* iOS Safari */
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+body {
+  font-family: "arial", sans-serif;
+  background-color: #1e3a8a;
+  touch-action: pan-y; /* Permet le scroll vertical uniquement */
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}

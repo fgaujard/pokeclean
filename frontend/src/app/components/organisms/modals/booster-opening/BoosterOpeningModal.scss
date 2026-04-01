@@ -1,0 +1,184 @@
+.booster-opening-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.booster-opening-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  h2 {
+    margin: 0;
+    font-family: $font-pixel;
+    font-size: 13px;
+    color: $color-pokemon-blue;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  p {
+    margin: 0;
+    font-family: $font-pixel;
+    font-size: 10px;
+    color: $color-dark;
+  }
+}
+
+.booster-opening-subtitle {
+  font-size: 11px;
+  color: $color-gray-700;
+}
+
+.booster-opening-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+}
+
+.booster-card-viewer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+
+  &.is-grabbing {
+    cursor: grabbing;
+  }
+}
+
+.booster-opened-card {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 2px solid $color-dark;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.booster-cards-stack {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booster-next-card-shell {
+  position: absolute;
+  inset: 0;
+  transform: translateY(10px) scale(0.97);
+  opacity: 0.45;
+  filter: saturate(0.9);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.booster-opened-card-shell {
+  width: 100%;
+  max-width: 100%;
+  transform: translateX(0);
+  transition: transform 0.18s ease;
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+
+  &.is-auto-swiping {
+    animation: autoSwipeLeft 0.22s ease-in forwards;
+  }
+}
+
+.booster-card-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  strong {
+    font-size: 14px;
+    color: $color-dark;
+  }
+
+  span {
+    font-family: $font-pixel;
+    font-size: 10px;
+    color: $color-pokemon-blue;
+    text-transform: uppercase;
+  }
+}
+
+.booster-opening-empty {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: $color-gray-700;
+}
+
+.booster-opening-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+
+  span {
+    font-size: 12px;
+    color: $color-gray-700;
+    text-align: center;
+  }
+}
+
+.booster-action-button {
+  width: 100%;
+  max-width: 260px;
+  padding: 12px 16px;
+  border: 3px solid $color-white;
+  border-radius: 12px;
+  background: $gradient-yellow-button;
+  color: $color-dark;
+  font-family: $font-pixel;
+  font-size: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all $animation-duration-fast ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 480px) {
+  .booster-cards-stack {
+    max-width: 250px;
+  }
+
+  .booster-opening-body {
+    min-height: 340px;
+  }
+}
+
+@keyframes autoSwipeLeft {
+  from {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-180px) rotate(-8deg);
+    opacity: 0.2;
+  }
+}

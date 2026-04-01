@@ -1,0 +1,15 @@
+.app-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  padding-top: 82px; // Espace pour la top bar
+  padding-bottom: 74.5px; // Espace pour la bottom nav
+  overflow: hidden; // Empêche le scroll ici, les pages gèrent leur propre scroll
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,93 @@
+.binder-page {
+  padding: 1rem;
+  background: #ffffff;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .binder-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0.2rem;
+    border-radius: 50px;
+
+    /* État par défaut: transparent */
+    background: transparent;
+    backdrop-filter: none;
+    border: 1px solid rgba(255, 255, 255, 0);
+    transition: all 0.3s ease;
+
+    h1 {
+      font-size: 1rem;
+      color: #000000;
+      font-weight: 700;
+      margin: 0;
+      transition: all 0.3s ease;
+    }
+
+    p {
+      color: #333;
+      font-size: 0.9rem;
+      margin: 0;
+      font-weight: 500;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
+    }
+
+    /* État actif: liquid glass blanc */
+    &.active {
+      margin: 0 0.3rem;
+      padding: 1rem;
+
+      /* Liquidglass effect with volume */
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.3),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at top right,
+          rgba(255, 255, 255, 0.2),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0.1) 48%,
+          rgba(110, 150, 220, 0.1) 100%
+        );
+      backdrop-filter: blur(4px) brightness(60%);
+      -webkit-backdrop-filter: blur(4px) brightness(60%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+
+      box-shadow:
+        inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+        0 10px 24px rgba(18, 32, 56, 0.18),
+        0 18px 40px rgba(18, 32, 56, 0.16);
+
+      h1 {
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(15, 15, 15, 0.8);
+      }
+
+      p {
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(15, 15, 15, 0.8);
+      }
+    }
+  }
+
+  .binder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+  }
+}

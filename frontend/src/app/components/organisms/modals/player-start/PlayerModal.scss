@@ -1,0 +1,79 @@
+.expanded-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid $color-pokemon-yellow;
+
+  .expanded-info {
+    flex: 1;
+    text-align: left;
+  }
+
+  .expanded-name {
+    font-family: $font-pixel;
+    font-size: 1.5rem;
+    color: $color-pokemon-blue;
+    text-shadow: 3px 3px 0 $color-pokemon-yellow;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .expanded-aka {
+    font-family: $font-pixel;
+    font-size: 0.7rem;
+    color: $color-gray-600;
+    margin: 0;
+  }
+}
+
+.player-bio {
+  background: $gradient-info-section;
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: $border-info;
+
+  h3 {
+    font-family: $font-pixel;
+    color: $color-pokemon-blue;
+    font-size: 0.8rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    letter-spacing: 0.2em;
+  }
+
+  p {
+    color: $color-gray-700;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 0;
+    text-align: justify;
+    font-family: Arial, sans-serif;
+  }
+}
+
+@media (max-width: 768px) {
+  .expanded-header {
+    gap: 1rem;
+
+    .expanded-name {
+      font-size: 1.2rem;
+    }
+
+    .expanded-aka {
+      font-size: 0.6rem;
+    }
+  }
+
+  .player-bio {
+    padding: 1rem;
+
+    h3 {
+      font-size: 0.7rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+}

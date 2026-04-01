@@ -1,0 +1,13 @@
+{
+  "name": "pokeclean",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently -n \"FRONTEND,BACKEND\" -c \"green,magenta\" -t \"HH:mm:ss\" -p \"{name} [{time}]\" \"npm run dev:front\" \"npm run dev:back\"",
+    "dev:front": "cd frontend && npm run dev",
+    "dev:back": "cd backend && npm run dev"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

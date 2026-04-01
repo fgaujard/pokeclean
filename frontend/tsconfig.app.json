@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/app/components/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@assets/*": ["src/app/assets/*"],
+      "@dto": ["src/tools/dto"],
+      "@hooks": ["src/tools/hooks"],
+      "@queries": ["src/tools/hooks/queries"],
+      "@lib/*": ["src/tools/lib/*"],
+      "@models": ["src/tools/models"],
+      "@models/enums": ["src/tools/models/enums"],
+      "@services": ["src/tools/services"],
+      "@types": ["src/tools/types"],
+      "@utils/*": ["src/tools/utils/*"]
+    }
+  },
+  "include": ["src"]
+}

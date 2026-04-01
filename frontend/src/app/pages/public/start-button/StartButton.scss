@@ -1,0 +1,35 @@
+.start-game-button {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-family: $font-pixel;
+  font-size: 0.8rem;
+  color: white;
+  background: $gradient-yellow-button;
+  border: $border-button;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow:
+    0 6px 0 $color-pokemon-yellow,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s;
+  animation: pulse 2s ease-in-out infinite;
+
+  &:active {
+    animation: none;
+    background: $gradient-yellow-button;
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 0 $color-pokemon-yellow,
+      0 10px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
